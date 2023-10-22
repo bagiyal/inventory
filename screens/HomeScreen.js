@@ -5,22 +5,41 @@ import {
   StyleSheet,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
+  Button,
+  KeyboardAvoidingView
 } from 'react-native';
 import * as Icons from 'react-native-heroicons/outline';
 import * as SolidIcons from 'react-native-heroicons/solid';
-import {Searchbar} from 'react-native-paper';
+import {Divider, Searchbar} from 'react-native-paper';
 import BottomNav from './BottomNav';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import BottomSheet, {BottomSheetRefProps} from './BottomNav';
+import Modal from 'react-native-modal';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import Buttonx from 'react-native-paper';
+import DatePicker from 'react-native-date-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 function HomeScreen({navigation}) {
+  const [openx, setOpenx] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'All Warehouse', value: 'apple'},
+    {label: 'Banana', value: 'banana'},
+    {label: 'Pear', value: 'pear'},
+  ]);
+
+  const [isContainer1Active, setIsContainer1Active] = useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
   const [searchText, setSearchText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('option1');
 
   const handleSearch = text => {
     setSearchText(text);
@@ -43,6 +62,8 @@ function HomeScreen({navigation}) {
   const handlefilter = () => {
     setIsVisible(true);
     console.log('filter');
+    setIsContainer1Active(!isContainer1Active);
+
     onPress();
   };
 
@@ -62,13 +83,14 @@ function HomeScreen({navigation}) {
         <View style={styles.subHeader2}>
           <TextInput
             style={{
+              flex: 1, // Use flex: 1 to allow the TextInput to expand and fill available space
               height: 47,
               borderColor: 'gray',
               borderWidth: 1,
-              width: '80%',
               backgroundColor: 'white',
               marginLeft: 10,
               borderRadius: 6,
+              padding:0,
             }}
             placeholder="    Search   "
             value={searchText}
@@ -183,17 +205,147 @@ function HomeScreen({navigation}) {
         </View>
       </View>
 
-      {/* <BottomNav /> */}
-      
-        <GestureHandlerRootView style={styles.container1}>
-          <View style={styles.container1}>
-            {/* <StatusBar style="dark" /> */}
-            {/* <TouchableOpacity style={styles.button} onPress={onPress} /> */}
-            <BottomSheet ref={ref}>
-            <View style={{ flex: 1, backgroundColor: 'orange' }} />
-            </BottomSheet>
+      <Modal
+        isVisible={isVisible}
+        onBackdropPress={() => {
+          setIsVisible(false);
+        }}
+        style={{width: '100%', marginLeft: 0, marginBottom: 0}}>
+        <View
+          style={{
+            flex: 1,
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            left: 0,
+            height: verticalScale(500),
+            backgroundColor: '#fff',
+            width: '100%',
+          }}>
+          <View style={styles.filter_transaction_activity}>
+            <Text className="text-lg mt-2 font-medium text-black">
+              Transaction Activity
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                setIsVisible(false);
+              }}>
+              <Text className="text-2lg mt-2 font-medium text-red-400">
+                Close
+              </Text>
+            </TouchableOpacity>
           </View>
-        </GestureHandlerRootView>
+          <Divider
+            bold={true}
+            className="mt-2"
+            theme={{colors: {primary: 'green'}}}
+          />
+
+          <View style={{flexDirection: 'row', width: '90%'}}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Openning</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Purchasing</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Transfer</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row', width: '90%'}}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Usage</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Lost</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Found</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flexDirection: 'row', width: '90%'}}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Damaged</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Returned</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text style={styles.buttonText}>Donation</Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text className="text-xl text-black ml-4 mt-2">Dates</Text>
+            <Divider
+              bold={true}
+              className="mt-2"
+              theme={{colors: {primary: 'green'}}}
+            />
+            <TouchableOpacity
+              style={styles.datePicker}
+              onPress={() => setOpen(true)}>
+              <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-3" />
+              <Text className="text-xl ml-4 mt-4 text-black">From Date</Text>
+              <DatePicker
+                modal
+                open={open}
+                date={date}
+                onConfirm={date => {
+                  setOpen(false);
+                  setDate(date);
+                }}
+                onCancel={() => {
+                  setOpen(false);
+                }}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.datePicker}
+              onPress={() => setOpen(true)}>
+              <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-3" />
+              <Text className="text-xl ml-4 mt-4 text-black">To Date</Text>
+              <DatePicker
+                modal
+                open={open}
+                date={date}
+                onConfirm={date => {
+                  setOpen(false);
+                  setDate(date);
+                }}
+                onCancel={() => {
+                  setOpen(false);
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.warehouse}>
+            <Text className="text-xl text-black mt-2"> WareHouse</Text>
+            <Divider
+              bold={true}
+              className="mt-2 text-black"
+              theme={{colors: {primary: 'green'}}}
+            />
+            <DropDownPicker
+              open={openx}
+              value={value}
+              items={items}
+              setOpen={setOpenx}
+              setValue={setValue}
+              setItems={setItems}
+              placeholder={'All Warehouse'}
+            />
+          </View>
+          <View style={styles.applyFilter}>
+            <Button
+              title="Apply Filter"
+              color="#007CBAFF"
+              // accessibilityLabel="Learn more about this purple button"
+            />
+          </View>
+        </View>
+      </Modal>
+      <BottomNav />
     </View>
   );
 }
@@ -206,7 +358,7 @@ const styles = StyleSheet.create({
   header: {
     height: '16%',
     width: '100%',
-    backgroundColor: '#0097ff',
+    backgroundColor: '#007CBAFF',
   },
   subHeader: {
     height: '40%',
@@ -265,22 +417,46 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  container1: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    left: 0,
-    // top: 0,
-    bottom: 0,
-    width: '100%',
-    height: '70%',
-    backgroundColor:'orange',
+  filter_transaction_activity: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // backgroundColor:'orange',
+    marginLeft: moderateScale(5),
+    marginRight: moderateScale(5),
   },
-  button: {
-    height: 50,
-    borderRadius: 25,
-    aspectRatio: 1,
-    backgroundColor: 'orange',
-    opacity: 0.6,
+  buttonContainer: {
+    backgroundColor: '#f3f4f6', // Background color of the button
+    borderRadius: 8, // Border radius to make it rounded
+    alignItems: 'center', // Center the text horizontally
+    justifyContent: 'center', // Center the text vertically
+    width: scale(90),
+    height: scale(30),
+    margin: moderateScale(8),
+    marginLeft: moderateScale(15),
+  },
+  buttonText: {
+    color: 'black', // Text color
+    fontSize: 18, // Font size
+  },
+  datePicker: {
+    flexDirection: 'row',
+    width: '90%',
+    height: scale(50),
+    // backgroundColor:'yellow', // Background color of the date
+    marginLeft: moderateScale(20),
+    marginTop: moderateScale(20),
+    borderRadius: 8,
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  warehouse: {
+    height: verticalScale(80),
+    // backgroundColor:'black',
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+    marginTop: verticalScale(10),
+  },
+  applyFilter: {
+    marginTop: verticalScale(30),
   },
 });

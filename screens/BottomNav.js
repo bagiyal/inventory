@@ -1,6 +1,7 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import React, { useCallback, useEffect, useImperativeHandle } from 'react';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/FontAwesome'; // You can use any icon library of your choice
 import Animated, {
   Extrapolate,
   interpolate,
@@ -16,114 +17,39 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 50;
 
 const BottomSheet = React.forwardRef((props, ref) => {
-  console.log('props', props,ref);
-  const translateY = useSharedValue(0);
-  const active = useSharedValue(false);
-
-  const scrollTo = useCallback((destination) => {
-    console.log(" destination: " + destination);
-    'worklet';
-    active.value = destination !== 0;
-
-    translateY.value = withSpring(destination, { damping: 50 });
-  }, []);
-
-  const isActive = useCallback(() => {
-    return active.value;
-  }, []);
-
-  useImperativeHandle(ref, () => ({ scrollTo, isActive }), [scrollTo, isActive]);
-
-  const context = useSharedValue({ y: 0 });
-  const gesture = Gesture.Pan()
-    .onStart(() => {
-      console.log(" onStart called");
-      context.value = { y: translateY.value };
-    })
-    .onUpdate((event) => {
-      console.log(" onUpdate called");
-      translateY.value = event.translationY + context.value.y;
-      translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y);
-    })
-    .onEnd(() => {
-      console.log(" onEnd called");
-      if (translateY.value > -SCREEN_HEIGHT / 3) {
-        scrollTo(0);
-      } else if (translateY.value < -SCREEN_HEIGHT / 1.5) {
-        scrollTo(MAX_TRANSLATE_Y);
-      }
-    });
-
-  const rBottomSheetStyle = useAnimatedStyle(() => {
-    const borderRadius = interpolate(
-      translateY.value,
-      [MAX_TRANSLATE_Y + 50, MAX_TRANSLATE_Y],
-      [25, 5],
-      Extrapolate.CLAMP
-    );
-
-    return {
-      borderRadius,
-      transform: [{ translateY: translateY.value }],
-    };
-  });
-
-  const rBackdropStyle = useAnimatedStyle(() => {
-    return {
-      opacity: withTiming(active.value ? 1 : 0),
-    };
-  }, []);
-
-  const rBackdropProps = useAnimatedProps(() => {
-    console.log('using rBackdropStyle');
-    return {
-      pointerEvents: active.value ? 'auto' : 'none',
-    };
-  }, []);
-
-  return (
-    <>
-      <Animated.View
-        onTouchStart={() => {
-          // Dismiss the BottomSheet
-          scrollTo(0);
-        }}
-        animatedProps={rBackdropProps}
-        style={[
-          {
-            ...StyleSheet.absoluteFillObject,
-            backgroundColor: 'green',
-          },
-          rBackdropStyle,
-        ]}
-      />
-      <GestureDetector gesture={gesture}>
-        <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
-          <View style={styles.line} />
-          {props.children}
-          <Text> sdfdsf</Text>
-        </Animated.View>
-      </GestureDetector>
-    </>
+    return (
+      <View style={styles.container}>
+      <TouchableOpacity style={styles.tab}>
+        <Icon name="home" size={24} color="black" />
+        <Text>Home</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.tab}>
+        <Icon name="plus" size={24} color="black" />
+        <Text>Add</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.tab}>
+        <Icon name="user" size={24} color="black" />
+        <Text>Profile</Text>
+      </TouchableOpacity>
+    </View>
   );
 });
 
 const styles = StyleSheet.create({
-  bottomSheetContainer: {
-    height: SCREEN_HEIGHT,
-    width: '100%',
+  container: {
+    position:'absolute',
+    bottom:0,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: 'white',
-    position: 'absolute',
-    top: SCREEN_HEIGHT,
-    borderRadius: 25,
+    height: 56, // Adjust the height according to your design
+    borderTopWidth: 1,
+    borderTopColor: 'lightgray',
+    width:'100%'
   },
-  line: {
-    width: 75,
-    height: 4,
-    backgroundColor: 'grey',
-    alignSelf: 'center',
-    marginVertical: 15,
-    borderRadius: 2,
+  tab: {
+    alignItems: 'center',
   },
 });
 
