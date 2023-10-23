@@ -17,6 +17,7 @@ import {
 function VerifyOtpScreen({ route, navigation }) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const refs = useRef([]);
+  console.log(" route params",route.params,typeof(route.params));
   const { phoneNumber } = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const [seconds, setSeconds] = useState(30);

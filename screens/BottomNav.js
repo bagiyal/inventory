@@ -20,15 +20,15 @@ const BottomSheet = React.forwardRef((props, ref) => {
     return (
       <View style={styles.container}>
       <TouchableOpacity style={styles.tab}>
-        <Icon name="home" size={24} color="black" />
+        <Icon name="home" size={22} color="black" />
         <Text>Home</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.tab}>
-        <Icon name="plus" size={24} color="black" />
+        <Icon name="search" size={22} color="black" />
         <Text>Add</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.tab}>
-        <Icon name="user" size={24} color="black" />
+        <Icon name="user" size={22} color="black" />
         <Text>Profile</Text>
       </TouchableOpacity>
     </View>

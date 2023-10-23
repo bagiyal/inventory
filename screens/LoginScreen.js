@@ -29,11 +29,11 @@ function LoginScreen({navigation}){
     return (
       // <KeyboardAvoidingView keyboardVerticalOffset={55} style={{flex:1}} behavior={Platform.OS ==='android' ? 'height' : 'padding'}>
       <View className="flex-1 items-center justify-center bg-[#007CBAFF]">
-        <View className="flex-1 items-center justify-center">
-          <Image className="w-36 h-36 mb-7" source={require("../assets/logo.png")} />
+        <View className="flex-1 items-center justify-center mb-5">
+          <Image className="w-40 h-40 mb-9 " source={require("../assets/logo.png")} />
           <Text className="text-white text-2xl mt-5 font-bold">Inventory Management</Text>
          <View className="flex flex-row mt-4 w-64 rounded-md border-b-2 border-white">
-          <Icons.PhoneIcon className="text-white py-6"/>
+          <Icons.PhoneIcon className="text-white py-6" size={17}/>
           <TextInput
             maxLength={10}
             //className="w-72 rounded-md border-b-2 border-white"

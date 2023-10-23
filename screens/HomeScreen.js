@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native';
 import * as Icons from 'react-native-heroicons/outline';
 import * as SolidIcons from 'react-native-heroicons/solid';
@@ -90,11 +90,12 @@ function HomeScreen({navigation}) {
               backgroundColor: 'white',
               marginLeft: 10,
               borderRadius: 6,
-              padding:0,
+              padding: 0,
             }}
-            placeholder="    Search   "
+            placeholder="     🔍   Search   "
             value={searchText}
             onChangeText={handleSearch}
+            editable={false}
           />
           <TouchableOpacity style={styles.filterIcon} onPress={handlefilter}>
             <Icons.FunnelIcon className="text-black ml-2 mt-2 mb-2" size={30} />
@@ -102,12 +103,12 @@ function HomeScreen({navigation}) {
         </View>
       </View>
       <View style={styles.stockSummary}>
-        <Text style={{}} className="text-right text-blue mr-4 text-base mt-1">
+        <Text style={{}} className="text-right text-blue mr-4 text-medium mt-1 text-blue-400 underline underline-offset-1">
           View Stock Summary
         </Text>
         <View style={{flexDirection: 'row'}}>
           <View style={styles.stockCard}>
-            <Text className="text-blue py-2 ml-7 text-base font-extrabold">
+            <Text className="text-blue py-2 ml-7 text-base font-extrabold" style={styles.inventoryColor} >
               Stock in Hand{' '}
             </Text>
             <Text
@@ -117,7 +118,7 @@ function HomeScreen({navigation}) {
             </Text>
           </View>
           <View style={[styles.stockCard, {backgroundColor: '#f9ff80'}]}>
-            <Text className="text-blue py-2 ml-7 text-base font-extrabold">
+            <Text className="text-blue py-2 ml-7 text-base font-extrabold" style={styles.inventoryColor}>
               Stock in Hand{' '}
             </Text>
             <Text
@@ -132,35 +133,53 @@ function HomeScreen({navigation}) {
         <View style={styles.subInventory}>
           <Image
             source={require('../assets/logo.png')}
-            className="w-20 h-20 rounted mt-2 "
+            className="w-20 h-20 rounted mt-2 ml-2 "
           />
           <Text className="text-lg mt-6 ml-2 text-black text-xl font-medium">
             Shirts
           </Text>
+          <View style={styles.inventoryRow}>
+            <Text style={styles.inventorytext}>White</Text>
+            <Text style={styles.inventorytext}>Logo</Text>
+            <Text style={styles.inventorytext}>Collar</Text>
+          </View>
+
           <View
             style={{
-              marginLeft: 100,
+              marginLeft: moderateScale(-70),
               backgroundColor: 'orange',
-              height: '50%',
-              width: '24%',
+              height: '40%',
+              width: '28%',
               marginTop: 10,
               borderRadius: 40,
             }}>
-            <Text className="text-base mt-2 ml-25 text-black text-center font-medium">
+            <Text className="text-base mt-1 ml-30 text-black text-center font-medium">
               $40,000
             </Text>
           </View>
         </View>
+        
         <View style={styles.subInventoryBottom}>
           {/* <Image source={require('../assets/logo.png')} className="w-20 h-20 rounted ml-2 mt-2 " /> */}
-          <View style={{justifyContent: 'space-around', flexDirection: 'row'}}>
+          <View
+            style={{
+              justifyContent: 'space-around',
+              flexDirection: 'row',
+              marginTop: verticalScale(12),
+            }}>
             <Text className="text-base  ml-2 text-blue-500">28-09-2023</Text>
             <Text className="text-base  ml-2 text-orange-500">in</Text>
             <Text className="text-base  ml-2 text-orange-500">Purchased</Text>
           </View>
-          <View className="mr-4 " style={{top: -20}}>
-            <Text className="text-right text-small">Quantity</Text>
-            <Text className="text-center text-lg text-amber-500 font-bold">
+          <View className="mr-4" style={{top: verticalScale(-10)}}>
+            <Text
+              className="text-right text-small"
+              style={styles.inventoryColor}>
+              Quantity
+            </Text>
+            <Text
+              className="text-center text-2xl text-amber-500 font-bold"
+              style={styles.inventoryColor}>
               500
             </Text>
           </View>
@@ -170,35 +189,53 @@ function HomeScreen({navigation}) {
         <View style={styles.subInventory}>
           <Image
             source={require('../assets/logo.png')}
-            className="w-20 h-20 rounted mt-2 "
+            className="w-20 h-20 rounted mt-2 ml-2 "
           />
           <Text className="text-lg mt-6 ml-2 text-black text-xl font-medium">
             Shirts
           </Text>
+          <View style={styles.inventoryRow}>
+            <Text style={styles.inventorytext}>White</Text>
+            <Text style={styles.inventorytext}>Logo</Text>
+            <Text style={styles.inventorytext}>Collar</Text>
+          </View>
+
           <View
             style={{
-              marginLeft: 100,
+              marginLeft: moderateScale(-70),
               backgroundColor: 'orange',
-              height: '50%',
-              width: '24%',
+              height: '40%',
+              width: '28%',
               marginTop: 10,
               borderRadius: 40,
             }}>
-            <Text className="text-base mt-2 ml-25 text-black text-center font-medium">
+            <Text className="text-base mt-1 ml-30 text-black text-center font-medium">
               $40,000
             </Text>
           </View>
         </View>
+        
         <View style={styles.subInventoryBottom}>
           {/* <Image source={require('../assets/logo.png')} className="w-20 h-20 rounted ml-2 mt-2 " /> */}
-          <View style={{justifyContent: 'space-around', flexDirection: 'row'}}>
+          <View
+            style={{
+              justifyContent: 'space-around',
+              flexDirection: 'row',
+              marginTop: verticalScale(12),
+            }}>
             <Text className="text-base  ml-2 text-blue-500">28-09-2023</Text>
             <Text className="text-base  ml-2 text-orange-500">in</Text>
             <Text className="text-base  ml-2 text-orange-500">Purchased</Text>
           </View>
-          <View className="mr-4 " style={{top: -20}}>
-            <Text className="text-right text-small">Quantity</Text>
-            <Text className="text-center text-lg text-amber-500 font-bold">
+          <View className="mr-4" style={{top: verticalScale(-10)}}>
+            <Text
+              className="text-right text-small"
+              style={styles.inventoryColor}>
+              Quantity
+            </Text>
+            <Text
+              className="text-center text-2xl text-amber-500 font-bold"
+              style={styles.inventoryColor}>
               500
             </Text>
           </View>
@@ -218,19 +255,19 @@ function HomeScreen({navigation}) {
             bottom: 0,
             right: 0,
             left: 0,
-            height: verticalScale(500),
+            height: verticalScale(540),
             backgroundColor: '#fff',
             width: '100%',
           }}>
           <View style={styles.filter_transaction_activity}>
-            <Text className="text-lg mt-2 font-medium text-black">
+            <Text className="text-lg mt-2 ml-2 font-medium text-black">
               Transaction Activity
             </Text>
             <TouchableOpacity
               onPress={() => {
                 setIsVisible(false);
               }}>
-              <Text className="text-2lg mt-2 font-medium text-red-400">
+              <Text className="text-base mt-2 mr-2 font-medium text-red-400">
                 Close
               </Text>
             </TouchableOpacity>
@@ -275,17 +312,15 @@ function HomeScreen({navigation}) {
             </TouchableOpacity>
           </View>
           <View>
-            <Text className="text-xl text-black ml-4 mt-2">Dates</Text>
+            <Text className="text-base text-black ml-4 mt-2">Dates</Text>
             <Divider
               bold={true}
               className="mt-2"
               theme={{colors: {primary: 'green'}}}
             />
-            <TouchableOpacity
-              style={styles.datePicker}
-              onPress={() => setOpen(true)}>
-              <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-3" />
-              <Text className="text-xl ml-4 mt-4 text-black">From Date</Text>
+            <TouchableOpacity style={styles.datePicker}>
+              <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-1" />
+              <Text className="text-base ml-4 mt-3 text-black">From Date</Text>
               <DatePicker
                 modal
                 open={open}
@@ -300,11 +335,9 @@ function HomeScreen({navigation}) {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.datePicker}
-              onPress={() => setOpen(true)}>
-              <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-3" />
-              <Text className="text-xl ml-4 mt-4 text-black">To Date</Text>
+            <TouchableOpacity style={styles.datePicker}>
+              <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-1" />
+              <Text className="text-base ml-4 mt-3 text-black">To Date</Text>
               <DatePicker
                 modal
                 open={open}
@@ -320,10 +353,10 @@ function HomeScreen({navigation}) {
             </TouchableOpacity>
           </View>
           <View style={styles.warehouse}>
-            <Text className="text-xl text-black mt-2"> WareHouse</Text>
+            <Text className="text-base text-black mt-2"> WareHouse</Text>
             <Divider
               bold={true}
-              className="mt-2 text-black"
+              className="mt-1 mb-4 text-black"
               theme={{colors: {primary: 'green'}}}
             />
             <DropDownPicker
@@ -340,6 +373,9 @@ function HomeScreen({navigation}) {
             <Button
               title="Apply Filter"
               color="#007CBAFF"
+              onPress={() => {
+                setIsVisible(false);
+              }}
               // accessibilityLabel="Learn more about this purple button"
             />
           </View>
@@ -403,12 +439,33 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   inventory: {
-    height: '17%',
+    height: verticalScale(130),
     width: '90%',
     margin: 10,
     marginLeft: 18,
     backgroundColor: 'white',
     borderRadius: 12,
+  },
+  inventoryRow: {
+    // backgroundColor:'orange',
+    flexDirection: 'row', // Display elements in a row
+    justifyContent: 'space-between', // Space evenly between elements
+    alignItems: 'center', // Align items vertically at the center
+    padding: 10, // Add padding to the row
+    width:scale(140),
+    height:verticalScale(45),
+    marginTop:verticalScale(38),
+    left:scale(-65),
+  },
+  inventorytext: {
+    color: 'green',
+    fontSize: 12, // Set the font size for small text
+    backgroundColor: 'white',
+    padding: 5,
+    borderRadius: 5,
+  },
+  inventoryColor: {
+    color: '#003950',
   },
   subInventory: {
     flexDirection: 'row',
@@ -441,7 +498,7 @@ const styles = StyleSheet.create({
   datePicker: {
     flexDirection: 'row',
     width: '90%',
-    height: scale(50),
+    height: scale(47),
     // backgroundColor:'yellow', // Background color of the date
     marginLeft: moderateScale(20),
     marginTop: moderateScale(20),
@@ -458,5 +515,7 @@ const styles = StyleSheet.create({
   },
   applyFilter: {
     marginTop: verticalScale(30),
+    width: '90%',
+    marginLeft: scale(18),
   },
 });
