@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import * as Icons from 'react-native-heroicons/outline';
 import * as SolidIcons from 'react-native-heroicons/solid';
-import {Divider, Searchbar} from 'react-native-paper';
+import {Divider, Icon, Searchbar} from 'react-native-paper';
 import BottomNav from './BottomNav';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -21,6 +21,7 @@ import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import Buttonx from 'react-native-paper';
 import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {transparent} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 function HomeScreen({navigation}) {
   const [openx, setOpenx] = useState(false);
@@ -47,7 +48,6 @@ function HomeScreen({navigation}) {
   };
 
   // bottom sheet navigation
-  // bottom sheet navigation
   const ref = useRef(null);
 
   const onPress = useCallback(() => {
@@ -67,6 +67,26 @@ function HomeScreen({navigation}) {
     onPress();
   };
 
+  const inventoryData = [
+    {
+      name: 'Shirts',
+      details: ['White', 'Logo', 'Collar'],
+      price: '$40,000',
+      date: '28-09-2023',
+      status: 'Purchased',
+      quantity: 500,
+    },
+    {
+      name: 'pants',
+      details: ['White', 'Logo', 'Collar'],
+      price: '$40,000',
+      date: '28-09-2023',
+      status: 'Purchased',
+      quantity: 500,
+    },
+    // Add more data objects as needed
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -81,6 +101,15 @@ function HomeScreen({navigation}) {
           </View>
         </View>
         <View style={styles.subHeader2}>
+          <Icons.MagnifyingGlassIcon
+            className="text-black py-5 ml-6 mt-1"
+            style={{
+              backgroundColor: 'transparent',
+              position: 'absolute',
+              left: 2,
+              zIndex: 1,
+            }} // Adjust the image dimensions and margins as needed
+          />
           <TextInput
             style={{
               flex: 1, // Use flex: 1 to allow the TextInput to expand and fill available space
@@ -92,10 +121,11 @@ function HomeScreen({navigation}) {
               borderRadius: 6,
               padding: 0,
             }}
-            placeholder="      Search   "
+            placeholder="             Search "
             value={searchText}
             onChangeText={handleSearch}
             editable={false}
+            underlineColorAndroid="transparent"
           />
           <TouchableOpacity style={styles.filterIcon} onPress={handlefilter}>
             <Icons.FunnelIcon className="text-black ml-2 mt-2 mb-2" size={30} />
@@ -111,142 +141,84 @@ function HomeScreen({navigation}) {
         <View style={{flexDirection: 'row'}}>
           <View style={styles.stockCard}>
             <Text
-              className="text-blue py-2 ml-6 text-xl font-extrabold"
+              className="text-blue py-2 ml-3 text-xl font-extrabold"
               style={styles.inventoryColor}>
               Stock in Hand{' '}
             </Text>
             <Text
-              className="text-white ml-10 pt-2 text-3xl font-extrabold"
+              className="text-white ml-9 pt-2 text-3xl font-extrabold"
               style={{color: '#166762'}}>
               1456{' '}
             </Text>
           </View>
           <View style={[styles.stockCard, {backgroundColor: '#f9ff80'}]}>
             <Text
-              className="text-blue py-2 ml-5 text-xl font-extrabold"
+              className="text-blue py-2 ml-3 text-xl font-extrabold"
               style={styles.inventoryColor}>
               Stock in Hand{' '}
             </Text>
             <Text
-              className="text-white ml-10 pt-2 text-3xl font-extrabold"
+              className="text-white ml-8 pt-2 text-3xl font-extrabold"
               style={{color: '#166762'}}>
               94,563{' '}
             </Text>
           </View>
         </View>
       </View>
-      <View style={styles.inventory}>
-        <View style={styles.subInventory}>
-          <Image
-            source={require('../assets/logo.png')}
-            className="w-20 h-20 rounted mt-2 ml-2 "
-          />
-          <Text className="text-lg mt-6 ml-2 text-black text-xl font-medium">
-            Shirts
-          </Text>
-          <View style={styles.inventoryRow}>
-            <Text style={styles.inventorytext}>White</Text>
-            <Text style={styles.inventorytext}>Logo</Text>
-            <Text style={styles.inventorytext}>Collar</Text>
+      <View>
+      {inventoryData.map((item, index) => (
+        <View style={styles.inventory} key={index}>
+          <View style={styles.subInventory}>
+            <Image source={require('../assets/logo.png')} className="w-20 h-20 rounted mt-2 ml-2" />
+            <Text className="text-lg mt-6 ml-2 text-black text-xl font-medium">
+              {item.name}
+            </Text>
+            <View style={styles.inventoryRow}>
+              {item.details.map((detail, index) => (
+                <Text style={styles.inventorytext} key={index}>
+                  {detail}
+                </Text>
+              ))}
+            </View>
+
+            <View
+              style={{
+                marginLeft: moderateScale(-65),
+                backgroundColor: 'orange',
+                height: '35%',
+                width: '25%',
+                marginTop: 8,
+                borderRadius: 40,
+              }}>
+              <Text className="text-base mt-1 ml-30 text-black text-center font-medium">
+                {item.price}
+              </Text>
+            </View>
           </View>
 
-          <View
-            style={{
-              marginLeft: moderateScale(-60),
-              backgroundColor: 'orange',
-              height: '40%',
-              width: '25%',
-              marginTop: 10,
-              borderRadius: 40,
-            }}>
-            <Text className="text-base mt-1 ml-30 text-black text-center font-medium">
-              $40,000
-            </Text>
+          <View style={styles.subInventoryBottom}>
+            <View
+              style={{
+                justifyContent: 'space-around',
+                flexDirection: 'row',
+                marginTop: verticalScale(15),
+              }}>
+              <Text className="text-base  ml-2 text-blue-500">{item.date}</Text>
+              <Text className="text-base  ml-2 text-orange-500">in</Text>
+              <Text className="text-base  ml-2 text-orange-500">{item.status}</Text>
+            </View>
+            <View className="mr-4" style={{ top: verticalScale(-14) }}>
+              <Text className="text-right text-base" style={styles.inventoryColor}>
+                Quantity
+              </Text>
+              <Text className="text-center text-4xl font-extrabold" style={styles.inventoryColor}>
+                {item.quantity}
+              </Text>
+            </View>
           </View>
         </View>
-
-        <View style={styles.subInventoryBottom}>
-          {/* <Image source={require('../assets/logo.png')} className="w-20 h-20 rounted ml-2 mt-2 " /> */}
-          <View
-            style={{
-              justifyContent: 'space-around',
-              flexDirection: 'row',
-              marginTop: verticalScale(16),
-            }}>
-            <Text className="text-base  ml-2 text-blue-500">28-09-2023</Text>
-            <Text className="text-base  ml-2 text-orange-500">in</Text>
-            <Text className="text-base  ml-2 text-orange-500">Purchased</Text>
-          </View>
-          <View className="mr-4" style={{top: verticalScale(-11)}}>
-            <Text
-              className="text-right text-base"
-              style={styles.inventoryColor}>
-              Quantity
-            </Text>
-            <Text
-              className="text-center text-4xl font-extrabold"
-              style={styles.inventoryColor}>
-              500
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.inventory}>
-        <View style={styles.subInventory}>
-          <Image
-            source={require('../assets/logo.png')}
-            className="w-20 h-20 rounted mt-2 ml-2 "
-          />
-          <Text className="text-lg mt-6 ml-2 text-black text-xl font-medium">
-            Shirts
-          </Text>
-          <View style={styles.inventoryRow}>
-            <Text style={styles.inventorytext}>White</Text>
-            <Text style={styles.inventorytext}>Logo</Text>
-            <Text style={styles.inventorytext}>Collar</Text>
-          </View>
-
-          <View
-            style={{
-              marginLeft: moderateScale(-60),
-              backgroundColor: 'orange',
-              height: '40%',
-              width: '25%',
-              marginTop: 10,
-              borderRadius: 40,
-            }}>
-            <Text className="text-base mt-1 ml-30 text-black text-center font-medium">
-              $40,000
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.subInventoryBottom}>
-          {/* <Image source={require('../assets/logo.png')} className="w-20 h-20 rounted ml-2 mt-2 " /> */}
-          <View
-            style={{
-              justifyContent: 'space-around',
-              flexDirection: 'row',
-              marginTop: verticalScale(16),
-            }}>
-            <Text className="text-base  ml-2 text-blue-500">28-09-2023</Text>
-            <Text className="text-base  ml-2 text-orange-500">in</Text>
-            <Text className="text-base  ml-2 text-orange-500">Purchased</Text>
-          </View>
-          <View className="mr-4" style={{top: verticalScale(-11)}}>
-            <Text
-              className="text-right text-base"
-              style={styles.inventoryColor}>
-              Quantity
-            </Text>
-            <Text
-              className="text-center text-4xl font-extrabold"
-              style={styles.inventoryColor}>
-              500
-            </Text>
-          </View>
-        </View>
-      </View>
+      ))}
+    </View>
 
       <Modal
         isVisible={isVisible}
@@ -261,7 +233,7 @@ function HomeScreen({navigation}) {
             bottom: 0,
             right: 0,
             left: 0,
-            height: verticalScale(510),
+            height: verticalScale(540),
             backgroundColor: '#fff',
             width: '100%',
           }}>
@@ -359,7 +331,10 @@ function HomeScreen({navigation}) {
             </TouchableOpacity>
           </View>
           <View style={styles.warehouse}>
-            <Text className="text-base text-black mt-2 font-bold"> WareHouse</Text>
+            <Text className="text-base text-black mt-2 font-bold">
+              {' '}
+              WareHouse
+            </Text>
             <Divider
               bold={true}
               className="mt-1 mb-4 text-black"
@@ -408,7 +383,6 @@ const styles = StyleSheet.create({
     margin: '3%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // backgroundColor:'white',
   },
   subHeaderLeft: {
     flexDirection: 'row',
@@ -439,13 +413,13 @@ const styles = StyleSheet.create({
   },
   stockCard: {
     width: '42%',
-    height: '120%',
+    height: '110%',
     backgroundColor: 'orange',
     margin: 12,
     borderRadius: 12,
   },
   inventory: {
-    height: verticalScale(120),
+    height: verticalScale(135),
     width: '90%',
     margin: 10,
     marginLeft: 18,
@@ -458,10 +432,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', // Space evenly between elements
     alignItems: 'center', // Align items vertically at the center
     padding: 10, // Add padding to the row
-    width: scale(140),
+    width: scale(150),
     height: verticalScale(45),
-    marginTop: verticalScale(30),
-    left: scale(-55),
+    marginTop: verticalScale(44),
+    left: scale(-65),
   },
   inventorytext: {
     color: 'green',
@@ -498,8 +472,8 @@ const styles = StyleSheet.create({
     marginLeft: moderateScale(15),
   },
   buttonText: {
-    color: 'black', 
-    fontSize: 17, 
+    color: 'black',
+    fontSize: 17,
     opacity: 0.6,
   },
   datePicker: {
@@ -520,7 +494,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: verticalScale(10),
   },
-  dates:{
+  dates: {
     paddingHorizontal: 15,
   },
   applyFilter: {
