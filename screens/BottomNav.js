@@ -1,6 +1,18 @@
-import { Dimensions, StyleSheet, Text, View,TouchableOpacity } from 'react-native';
-import React, { useCallback, useEffect, useImperativeHandle } from 'react';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image
+} from 'react-native';
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'; // You can use any icon library of your choice
 import Animated, {
   Extrapolate,
@@ -11,25 +23,41 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
-
-const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 50;
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 const BottomSheet = React.forwardRef((props, ref) => {
-    return (
-      <View style={styles.container}>
-      <TouchableOpacity style={styles.tab}>
-        <Icon name="home" size={22} color="black" />
-        <Text>Home</Text>
+  const [activeTab, setActiveTab] = useState('home'); // Initialize with 'home' as the active tab
+
+  const handleTabPress = tabName => {
+    setActiveTab(tabName);
+  };
+
+  const getTabColor = tabName => {
+    return activeTab === tabName ? '#007CBAFF' : 'black';
+  };
+  const getTextColor = tabName => {
+    return activeTab === tabName ? '#007CBAFF' : 'black';
+  };
+
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.tab}
+        onPress={() => handleTabPress('home')}>
+        <Image source={require('../assets/box.png')} style={[styles.bottomImg,{tintColor: getTextColor('home')}]}/>
+        <Text style={{color: getTextColor('home')}}>Inventory</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.tab}>
-        <Icon name="search" size={22} color="black" />
-        <Text>Add</Text>
+      <TouchableOpacity
+        style={styles.tab}
+        onPress={() => handleTabPress('add')}>
+        <Image source={require('../assets/tracking.png')} style={[styles.bottomImg,{tintColor: getTextColor('add')}]}/>
+        <Text style={{color: getTextColor('add')}}>Tracking</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.tab}>
-        <Icon name="user" size={22} color="black" />
-        <Text>Profile</Text>
+      <TouchableOpacity
+        style={styles.tab}
+        onPress={() => handleTabPress('profile')}>
+        <Image source={require('../assets/user.png')} style={[styles.bottomImg,{tintColor: getTextColor('profile')}]}/>
+        <Text style={{color: getTextColor('profile')}}>Account</Text>
       </TouchableOpacity>
     </View>
   );
@@ -37,20 +65,24 @@ const BottomSheet = React.forwardRef((props, ref) => {
 
 const styles = StyleSheet.create({
   container: {
-    position:'absolute',
-    bottom:0,
+    position: 'absolute',
+    bottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'white',
-    height: 56, // Adjust the height according to your design
+    height: verticalScale(52), // Adjust the height according to your design
     borderTopWidth: 1,
     borderTopColor: 'lightgray',
-    width:'100%'
+    width: '100%',
   },
   tab: {
     alignItems: 'center',
   },
+  bottomImg:{
+    width: moderateScale(24),
+    height: verticalScale(24),
+  }
 });
 
 export default BottomSheet;

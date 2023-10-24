@@ -33,7 +33,7 @@ function LoginScreen({navigation}){
           <Image className="w-40 h-40 mb-9 " source={require("../assets/logo.png")} />
           <Text className="text-white text-2xl mt-5 font-bold">Inventory Management</Text>
          <View className="flex flex-row mt-4 w-64 rounded-md border-b-2 border-white">
-          <Icons.PhoneIcon className="text-white py-6" size={17}/>
+          <Icons.PhoneIcon className="text-white py-6 mr-2" size={17}/>
           <TextInput
             maxLength={10}
             //className="w-72 rounded-md border-b-2 border-white"
@@ -49,7 +49,7 @@ function LoginScreen({navigation}){
         <View className="justify-end pb-5">
           <TouchableOpacity
             onPress={handlePress}
-            className="bg-white py-2 px-20 rounded-md items-center ${phone.length !== 10 ? 'opacity-50' : ''}"
+            className="bg-white py-2 px-24 rounded-md items-center ${phone.length !== 10 ? 'opacity-50' : ''}"
             disabled={phone.length !== 10}
           >
             <Text className="text-lg">
@@ -58,7 +58,6 @@ function LoginScreen({navigation}){
           </TouchableOpacity>
         </View>
       </View>
-      // </KeyboardAvoidingView>
     );
 }
 

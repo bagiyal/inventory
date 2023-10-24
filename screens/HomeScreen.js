@@ -92,7 +92,7 @@ function HomeScreen({navigation}) {
               borderRadius: 6,
               padding: 0,
             }}
-            placeholder="     🔍   Search   "
+            placeholder="      Search   "
             value={searchText}
             onChangeText={handleSearch}
             editable={false}
@@ -103,28 +103,34 @@ function HomeScreen({navigation}) {
         </View>
       </View>
       <View style={styles.stockSummary}>
-        <Text style={{}} className="text-right text-blue mr-4 text-medium mt-1 text-blue-400 underline underline-offset-1">
+        <Text
+          style={{}}
+          className="text-right text-blue mr-4 text-medium mt-1 text-blue-400 underline underline-offset-1">
           View Stock Summary
         </Text>
         <View style={{flexDirection: 'row'}}>
           <View style={styles.stockCard}>
-            <Text className="text-blue py-2 ml-7 text-base font-extrabold" style={styles.inventoryColor} >
+            <Text
+              className="text-blue py-2 ml-6 text-xl font-extrabold"
+              style={styles.inventoryColor}>
               Stock in Hand{' '}
             </Text>
             <Text
-              className="text-white ml-10 text-3xl font-extrabold"
+              className="text-white ml-10 pt-2 text-3xl font-extrabold"
               style={{color: '#166762'}}>
               1456{' '}
             </Text>
           </View>
           <View style={[styles.stockCard, {backgroundColor: '#f9ff80'}]}>
-            <Text className="text-blue py-2 ml-7 text-base font-extrabold" style={styles.inventoryColor}>
+            <Text
+              className="text-blue py-2 ml-5 text-xl font-extrabold"
+              style={styles.inventoryColor}>
               Stock in Hand{' '}
             </Text>
             <Text
-              className="text-white ml-10 text-3xl font-extrabold"
+              className="text-white ml-10 pt-2 text-3xl font-extrabold"
               style={{color: '#166762'}}>
-              1456{' '}
+              94,563{' '}
             </Text>
           </View>
         </View>
@@ -146,10 +152,10 @@ function HomeScreen({navigation}) {
 
           <View
             style={{
-              marginLeft: moderateScale(-70),
+              marginLeft: moderateScale(-60),
               backgroundColor: 'orange',
               height: '40%',
-              width: '28%',
+              width: '25%',
               marginTop: 10,
               borderRadius: 40,
             }}>
@@ -158,27 +164,27 @@ function HomeScreen({navigation}) {
             </Text>
           </View>
         </View>
-        
+
         <View style={styles.subInventoryBottom}>
           {/* <Image source={require('../assets/logo.png')} className="w-20 h-20 rounted ml-2 mt-2 " /> */}
           <View
             style={{
               justifyContent: 'space-around',
               flexDirection: 'row',
-              marginTop: verticalScale(12),
+              marginTop: verticalScale(16),
             }}>
             <Text className="text-base  ml-2 text-blue-500">28-09-2023</Text>
             <Text className="text-base  ml-2 text-orange-500">in</Text>
             <Text className="text-base  ml-2 text-orange-500">Purchased</Text>
           </View>
-          <View className="mr-4" style={{top: verticalScale(-10)}}>
+          <View className="mr-4" style={{top: verticalScale(-11)}}>
             <Text
-              className="text-right text-small"
+              className="text-right text-base"
               style={styles.inventoryColor}>
               Quantity
             </Text>
             <Text
-              className="text-center text-2xl text-amber-500 font-bold"
+              className="text-center text-4xl font-extrabold"
               style={styles.inventoryColor}>
               500
             </Text>
@@ -202,10 +208,10 @@ function HomeScreen({navigation}) {
 
           <View
             style={{
-              marginLeft: moderateScale(-70),
+              marginLeft: moderateScale(-60),
               backgroundColor: 'orange',
               height: '40%',
-              width: '28%',
+              width: '25%',
               marginTop: 10,
               borderRadius: 40,
             }}>
@@ -214,27 +220,27 @@ function HomeScreen({navigation}) {
             </Text>
           </View>
         </View>
-        
+
         <View style={styles.subInventoryBottom}>
           {/* <Image source={require('../assets/logo.png')} className="w-20 h-20 rounted ml-2 mt-2 " /> */}
           <View
             style={{
               justifyContent: 'space-around',
               flexDirection: 'row',
-              marginTop: verticalScale(12),
+              marginTop: verticalScale(16),
             }}>
             <Text className="text-base  ml-2 text-blue-500">28-09-2023</Text>
             <Text className="text-base  ml-2 text-orange-500">in</Text>
             <Text className="text-base  ml-2 text-orange-500">Purchased</Text>
           </View>
-          <View className="mr-4" style={{top: verticalScale(-10)}}>
+          <View className="mr-4" style={{top: verticalScale(-11)}}>
             <Text
-              className="text-right text-small"
+              className="text-right text-base"
               style={styles.inventoryColor}>
               Quantity
             </Text>
             <Text
-              className="text-center text-2xl text-amber-500 font-bold"
+              className="text-center text-4xl font-extrabold"
               style={styles.inventoryColor}>
               500
             </Text>
@@ -255,12 +261,12 @@ function HomeScreen({navigation}) {
             bottom: 0,
             right: 0,
             left: 0,
-            height: verticalScale(540),
+            height: verticalScale(510),
             backgroundColor: '#fff',
             width: '100%',
           }}>
           <View style={styles.filter_transaction_activity}>
-            <Text className="text-lg mt-2 ml-2 font-medium text-black">
+            <Text className="text-base mt-2 ml-2 font-medium text-black">
               Transaction Activity
             </Text>
             <TouchableOpacity
@@ -311,11 +317,11 @@ function HomeScreen({navigation}) {
               <Text style={styles.buttonText}>Donation</Text>
             </TouchableOpacity>
           </View>
-          <View>
-            <Text className="text-base text-black ml-4 mt-2">Dates</Text>
+          <View style={styles.dates}>
+            <Text className="text-base text-black font-bold mt-2">Dates</Text>
             <Divider
               bold={true}
-              className="mt-2"
+              className="mt-1 mb-4 text-black"
               theme={{colors: {primary: 'green'}}}
             />
             <TouchableOpacity style={styles.datePicker}>
@@ -353,7 +359,7 @@ function HomeScreen({navigation}) {
             </TouchableOpacity>
           </View>
           <View style={styles.warehouse}>
-            <Text className="text-base text-black mt-2"> WareHouse</Text>
+            <Text className="text-base text-black mt-2 font-bold"> WareHouse</Text>
             <Divider
               bold={true}
               className="mt-1 mb-4 text-black"
@@ -369,16 +375,16 @@ function HomeScreen({navigation}) {
               placeholder={'All Warehouse'}
             />
           </View>
-          <View style={styles.applyFilter}>
-            <Button
-              title="Apply Filter"
-              color="#007CBAFF"
-              onPress={() => {
-                setIsVisible(false);
-              }}
-              // accessibilityLabel="Learn more about this purple button"
-            />
-          </View>
+          <TouchableOpacity
+            style={styles.applyFilter}
+            onPress={() => {
+              setIsVisible(false);
+            }}>
+            <Text className="text-center text-white text-lg mt-2">
+              {' '}
+              Apply Filter{' '}
+            </Text>
+          </TouchableOpacity>
         </View>
       </Modal>
       <BottomNav />
@@ -439,7 +445,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   inventory: {
-    height: verticalScale(130),
+    height: verticalScale(120),
     width: '90%',
     margin: 10,
     marginLeft: 18,
@@ -452,15 +458,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', // Space evenly between elements
     alignItems: 'center', // Align items vertically at the center
     padding: 10, // Add padding to the row
-    width:scale(140),
-    height:verticalScale(45),
-    marginTop:verticalScale(38),
-    left:scale(-65),
+    width: scale(140),
+    height: verticalScale(45),
+    marginTop: verticalScale(30),
+    left: scale(-55),
   },
   inventorytext: {
     color: 'green',
     fontSize: 12, // Set the font size for small text
-    backgroundColor: 'white',
+    backgroundColor: '#e5fff0',
     padding: 5,
     borderRadius: 5,
   },
@@ -492,15 +498,16 @@ const styles = StyleSheet.create({
     marginLeft: moderateScale(15),
   },
   buttonText: {
-    color: 'black', // Text color
-    fontSize: 18, // Font size
+    color: 'black', 
+    fontSize: 17, 
+    opacity: 0.6,
   },
   datePicker: {
     flexDirection: 'row',
-    width: '90%',
-    height: scale(47),
+    width: '100%',
+    height: scale(45),
     // backgroundColor:'yellow', // Background color of the date
-    marginLeft: moderateScale(20),
+    marginLeft: moderateScale(0),
     marginTop: moderateScale(20),
     borderRadius: 8,
     borderColor: 'black',
@@ -513,9 +520,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: verticalScale(10),
   },
+  dates:{
+    paddingHorizontal: 15,
+  },
   applyFilter: {
     marginTop: verticalScale(30),
-    width: '90%',
-    marginLeft: scale(18),
+    width: '88%',
+    height: verticalScale(42),
+    marginLeft: scale(20),
+    backgroundColor: '#007CBAFF',
+    borderRadius: moderateScale(12),
   },
 });
