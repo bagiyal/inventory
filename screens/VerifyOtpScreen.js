@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   Alert,
+  ScrollView,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {getHash, startOtpListener, useOtpVerify} from 'react-native-otp-verify';
@@ -128,7 +129,8 @@ function VerifyOtpScreen({route, navigation}) {
     }
   };
   return (
-    <View className="flex-1 items-center justify-center bg-[#007CBAFF]">
+    <ScrollView keyboardShouldPersistTaps="handled" className="bg-[#007CBAFF]">
+    <View className="flex-1 items-center h-full justify-center bg-[#007CBAFF] -mt-1 ">
       <TouchableOpacity onPress={handleBack}>
         <Icons.ArrowLeftIcon className="text-white mr-80 pt-16" />
       </TouchableOpacity>
@@ -171,15 +173,16 @@ function VerifyOtpScreen({route, navigation}) {
           )}
         </Text>
       </View>
-      <View className="justify-end pb-2">
+      <View className="justify-end pb-2 mt-8">
         <TouchableOpacity
           onPress={handleVerifyCode}
-          className="bg-white py-2 px-24 rounded-md items-center"
+          className="bg-white py-2 px-24 rounded-md items-center w-72 h-12 mt-4"
           disabled={isLoading}>
           <Text className="text-lg text-black">Login</Text>
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
 }
 

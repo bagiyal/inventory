@@ -88,19 +88,19 @@ function HomeScreen({navigation}) {
   ];
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.subHeader}>
-          <View style={styles.subHeaderLeft}>
-            <Icons.MapPinIcon className="text-white py-5" />
-            <Text className="text-white text-base mt-2 ml-2">Mangarh</Text>
+    <View className="flex flex-1">
+      <View className="w-full h-28 bg-[#007CBAFF]">
+        <View className="w-full w-11/12 m-3 justify-between flex-row">
+          <View className="flex flex-row">
+            <Icons.MapPinIcon className="text-white py-5 -mt-2" />
+            <Text className="text-white text-base ml-2">Mangarh</Text>
           </View>
-          <View style={styles.subHeaderRight}>
+          <View className="flex flex-row">
             <Icons.BellAlertIcon className="text-white mr-2 " />
             <SolidIcons.PlusCircleIcon className="text-white" />
           </View>
         </View>
-        <View style={styles.subHeader2}>
+        <View className="flex flex-row -mt-3 -ml-1">
           <Icons.MagnifyingGlassIcon
             className="text-black py-5 ml-6 mt-1"
             style={{
@@ -112,7 +112,8 @@ function HomeScreen({navigation}) {
           />
           <TextInput
             style={{
-              flex: 1, // Use flex: 1 to allow the TextInput to expand and fill available space
+              // flex: 1,
+              width: '80%',
               height: 47,
               borderColor: 'gray',
               borderWidth: 1,
@@ -120,6 +121,7 @@ function HomeScreen({navigation}) {
               marginLeft: 10,
               borderRadius: 6,
               padding: 0,
+              marginHorizontal: 5,
             }}
             placeholder="             Search "
             value={searchText}
@@ -127,19 +129,21 @@ function HomeScreen({navigation}) {
             editable={false}
             underlineColorAndroid="transparent"
           />
-          <TouchableOpacity style={styles.filterIcon} onPress={handlefilter}>
+          <TouchableOpacity
+            className="bg-white h-full w-12 top--2  rounded-xl"
+            onPress={handlefilter}>
             <Icons.FunnelIcon className="text-black ml-2 mt-2 mb-2" size={30} />
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.stockSummary}>
+      <View className="h-1/4">
         <Text
           style={{}}
           className="text-right text-blue mr-4 text-medium mt-1 text-blue-400 underline underline-offset-1">
           View Stock Summary
         </Text>
-        <View style={{flexDirection: 'row'}}>
-          <View style={styles.stockCard}>
+        <View className="flex flex-row">
+          <View className="w-40 h-full bg-orange-300 m-4 rounded-xl ml-2">
             <Text
               className="text-blue py-2 ml-3 text-xl font-extrabold"
               style={styles.inventoryColor}>
@@ -151,7 +155,7 @@ function HomeScreen({navigation}) {
               1456{' '}
             </Text>
           </View>
-          <View style={[styles.stockCard, {backgroundColor: '#f9ff80'}]}>
+          <View className="w-40 h-full bg-yellow-300 m-4 rounded-xl ml-0">
             <Text
               className="text-blue py-2 ml-3 text-xl font-extrabold"
               style={styles.inventoryColor}>
@@ -166,78 +170,76 @@ function HomeScreen({navigation}) {
         </View>
       </View>
       <View>
-      {inventoryData.map((item, index) => (
-        <View style={styles.inventory} key={index}>
-          <View style={styles.subInventory}>
-            <Image source={require('../assets/logo.png')} className="w-20 h-20 rounted mt-2 ml-2" />
-            <Text className="text-lg mt-6 ml-2 text-black text-xl font-medium">
-              {item.name}
-            </Text>
-            <View style={styles.inventoryRow}>
-              {item.details.map((detail, index) => (
-                <Text style={styles.inventorytext} key={index}>
-                  {detail}
+        {inventoryData.map((item, index) => (
+          <View
+            className="h-36 w-11/12 mr-2 ml-2 mb-4 ml-4 bg-white rounded-lg mt-0"
+            key={index}>
+            <View className="flex flex-row">
+              <Image
+                source={require('../assets/logo.png')}
+                className="w-16 h-16 rounted mt-2 ml-2"
+              />
+              <Text className="text-lg mt-4 ml-2 text-black text-xl font-medium">
+                {item.name}
+              </Text>
+              <View className="flex flex-row justify-between items-center p-10 w-60 h-6 mt-6 -left-36 ml-12">
+                {item.details.map((detail, index) => (
+                  <Text
+                    className="text-green text-xs bg-[#e5fff0]  p-1 h-6 rounded-md ml-2"
+                    key={index}>
+                    {detail}
+                  </Text>
+                ))}
+              </View>
+
+              <View
+                // style={{
+                //   // marginLeft: moderateScale(-85),
+                //   right: 170,
+                //   backgroundColor: 'orange',
+                //   height: verticalScale(30),
+                //   width: '25%',
+                //   marginTop: verticalScale(10),
+                //   borderRadius: 40,
+                // }}
+                className=" bg-orange-500 h-8 w-20 mt-2 right-48 rounded-2xl">
+                <Text className="text-base mt-1 ml-30 text-black text-center font-medium">
+                  {item.price}
                 </Text>
-              ))}
+              </View>
             </View>
 
-            <View
-              style={{
-                marginLeft: moderateScale(-65),
-                backgroundColor: 'orange',
-                height: '35%',
-                width: '25%',
-                marginTop: 8,
-                borderRadius: 40,
-              }}>
-              <Text className="text-base mt-1 ml-30 text-black text-center font-medium">
-                {item.price}
-              </Text>
+            <View className="flex flex-row justify-between">
+              <View className="justify-around flex-row mt-0">
+                <Text className="text-base  ml-2 text-blue-500">
+                  {item.date}
+                </Text>
+                <Text className="text-base  ml-2 text-orange-500">in</Text>
+                <Text className="text-base  ml-2 text-orange-500">
+                  {item.status}
+                </Text>
+              </View>
+              <View className="mr-4 -top-8">
+                <Text className="text-right text-base text-[#003950]">
+                  Quantity
+                </Text>
+                <Text className="text-center text-4xl font-extrabold text-[#003950]">
+                  {item.quantity}
+                </Text>
+              </View>
             </View>
           </View>
-
-          <View style={styles.subInventoryBottom}>
-            <View
-              style={{
-                justifyContent: 'space-around',
-                flexDirection: 'row',
-                marginTop: verticalScale(15),
-              }}>
-              <Text className="text-base  ml-2 text-blue-500">{item.date}</Text>
-              <Text className="text-base  ml-2 text-orange-500">in</Text>
-              <Text className="text-base  ml-2 text-orange-500">{item.status}</Text>
-            </View>
-            <View className="mr-4" style={{ top: verticalScale(-14) }}>
-              <Text className="text-right text-base" style={styles.inventoryColor}>
-                Quantity
-              </Text>
-              <Text className="text-center text-4xl font-extrabold" style={styles.inventoryColor}>
-                {item.quantity}
-              </Text>
-            </View>
-          </View>
-        </View>
-      ))}
-    </View>
+        ))}
+      </View>
 
       <Modal
         isVisible={isVisible}
         onBackdropPress={() => {
           setIsVisible(false);
         }}
-        style={{width: '100%', marginLeft: 0, marginBottom: 0}}>
-        <View
-          style={{
-            flex: 1,
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            left: 0,
-            height: verticalScale(540),
-            backgroundColor: '#fff',
-            width: '100%',
-          }}>
-          <View style={styles.filter_transaction_activity}>
+        className="w-full ml-0 mb-0">
+        <View className="flex absolute bottom-0 right-0 left-0 h-5/6 bg-[#fff] w-full">
+          <View className="flex flex-row justify-between ml-1 mr-1">
             <Text className="text-base mt-2 ml-2 font-medium text-black">
               Transaction Activity
             </Text>
@@ -250,55 +252,49 @@ function HomeScreen({navigation}) {
               </Text>
             </TouchableOpacity>
           </View>
-          <Divider
-            bold={true}
-            className="mt-2"
-            theme={{colors: {primary: 'green'}}}
-          />
+          <Divider bold={true} className="mt-2" />
 
-          <View style={{flexDirection: 'row', width: '90%'}}>
+          <View className="flex flex-row w-5/6">
             <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Openning</Text>
+              <Text className="text-black text-base opacity-60">Openning</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Purchasing</Text>
+              <Text className="text-black text-base opacity-60">
+                Purchasing
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Transfer</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{flexDirection: 'row', width: '90%'}}>
-            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Usage</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Lost</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Found</Text>
+              <Text className="text-black text-base opacity-60">Transfer</Text>
             </TouchableOpacity>
           </View>
-          <View style={{flexDirection: 'row', width: '90%'}}>
+          <View className="flex flex-row w-5/6">
             <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Damaged</Text>
+              <Text className="text-black text-base opacity-60">Usage</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Returned</Text>
+              <Text className="text-black text-base opacity-60">Lost</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
-              <Text style={styles.buttonText}>Donation</Text>
+              <Text className="text-black text-base opacity-60">Found</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.dates}>
+          <View className="flex flex-row w-5/6">
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text className="text-black text-base opacity-60">Damaged</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text className="text-black text-base opacity-60">Returned</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+              <Text className="text-black text-base opacity-60">Donation</Text>
+            </TouchableOpacity>
+          </View>
+          <View className="px-4">
             <Text className="text-base text-black font-bold mt-2">Dates</Text>
-            <Divider
-              bold={true}
-              className="mt-1 mb-4 text-black"
-              theme={{colors: {primary: 'green'}}}
-            />
-            <TouchableOpacity style={styles.datePicker}>
-              <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-1" />
-              <Text className="text-base ml-4 mt-3 text-black">From Date</Text>
+            <Divider bold={true} className="mt-1 mb-4 text-black" />
+            <TouchableOpacity className="flex flex-row w-full h-14 rounded-lg border border-gray-400">
+              <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-2" />
+              <Text className="text-base ml-4 mt-4 text-black">From Date</Text>
               <DatePicker
                 modal
                 open={open}
@@ -313,7 +309,7 @@ function HomeScreen({navigation}) {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.datePicker}>
+            <TouchableOpacity className="flex flex-row w-full h-14 rounded-lg border border-gray-400 mt-4">
               <Icons.CalendarDaysIcon className="text-white py-5 text-black ml-2 mt-1" />
               <Text className="text-base ml-4 mt-3 text-black">To Date</Text>
               <DatePicker
@@ -330,7 +326,7 @@ function HomeScreen({navigation}) {
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.warehouse}>
+          <View className="m-3">
             <Text className="text-base text-black mt-2 font-bold">
               {' '}
               WareHouse
@@ -351,7 +347,7 @@ function HomeScreen({navigation}) {
             />
           </View>
           <TouchableOpacity
-            style={styles.applyFilter}
+            className="w-11/12 h-12 bg-[#007CBAFF] ml-4 mt-2 rounded-xl"
             onPress={() => {
               setIsVisible(false);
             }}>
@@ -369,140 +365,4 @@ function HomeScreen({navigation}) {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    height: '16%',
-    width: '100%',
-    backgroundColor: '#007CBAFF',
-  },
-  subHeader: {
-    height: '40%',
-    width: '95%',
-    margin: '3%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  subHeaderLeft: {
-    flexDirection: 'row',
-  },
-  subHeaderRight: {
-    flexDirection: 'row',
-    marginTop: '2%',
-  },
-  subHeader2: {
-    marginTop: -18,
-    flexDirection: 'row',
-  },
-  search: {
-    width: '80%',
-    marginLeft: '2%',
-    backgroundColor: 'white',
-  },
-  filterIcon: {
-    backgroundColor: 'white',
-    height: '75%',
-    width: '12%',
-    top: -2,
-    margin: 5,
-    borderRadius: 10,
-  },
-  stockSummary: {
-    height: '24%',
-  },
-  stockCard: {
-    width: '42%',
-    height: '110%',
-    backgroundColor: 'orange',
-    margin: 12,
-    borderRadius: 12,
-  },
-  inventory: {
-    height: verticalScale(135),
-    width: '90%',
-    margin: 10,
-    marginLeft: 18,
-    backgroundColor: 'white',
-    borderRadius: 12,
-  },
-  inventoryRow: {
-    // backgroundColor:'orange',
-    flexDirection: 'row', // Display elements in a row
-    justifyContent: 'space-between', // Space evenly between elements
-    alignItems: 'center', // Align items vertically at the center
-    padding: 10, // Add padding to the row
-    width: scale(150),
-    height: verticalScale(45),
-    marginTop: verticalScale(44),
-    left: scale(-65),
-  },
-  inventorytext: {
-    color: 'green',
-    fontSize: 12, // Set the font size for small text
-    backgroundColor: '#e5fff0',
-    padding: 5,
-    borderRadius: 5,
-  },
-  inventoryColor: {
-    color: '#003950',
-  },
-  subInventory: {
-    flexDirection: 'row',
-  },
-  subInventoryBottom: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  filter_transaction_activity: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    // backgroundColor:'orange',
-    marginLeft: moderateScale(5),
-    marginRight: moderateScale(5),
-  },
-  buttonContainer: {
-    backgroundColor: '#f3f4f6', // Background color of the button
-    borderRadius: 8, // Border radius to make it rounded
-    alignItems: 'center', // Center the text horizontally
-    justifyContent: 'center', // Center the text vertically
-    width: scale(90),
-    height: scale(30),
-    margin: moderateScale(8),
-    marginLeft: moderateScale(15),
-  },
-  buttonText: {
-    color: 'black',
-    fontSize: 17,
-    opacity: 0.6,
-  },
-  datePicker: {
-    flexDirection: 'row',
-    width: '100%',
-    height: scale(45),
-    // backgroundColor:'yellow', // Background color of the date
-    marginLeft: moderateScale(0),
-    marginTop: moderateScale(20),
-    borderRadius: 8,
-    borderColor: 'black',
-    borderWidth: 1,
-  },
-  warehouse: {
-    height: verticalScale(80),
-    // backgroundColor:'black',
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-    marginTop: verticalScale(10),
-  },
-  dates: {
-    paddingHorizontal: 15,
-  },
-  applyFilter: {
-    marginTop: verticalScale(30),
-    width: '88%',
-    height: verticalScale(42),
-    marginLeft: scale(20),
-    backgroundColor: '#007CBAFF',
-    borderRadius: moderateScale(12),
-  },
 });
