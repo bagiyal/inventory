@@ -14,7 +14,9 @@ export default function MyStack() {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {/* <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
         {/* <Stack.Screen name="VerifyOtpScreen" component={VerifyOtpScreen} /> */}
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
+        <Stack.Screen name="additem" component={AddItem} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
